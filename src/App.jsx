@@ -12,19 +12,6 @@ export default function App() {
       withNormalizeCSS
       theme={{
         colorScheme: "dark",
-        color: {
-          dark: [
-            "#231F1F",
-            "#231F1F",
-            "#231F1F",
-            "#231F1F",
-            "#231F1F",
-            "#231F1F",
-            "#231F1F",
-            "#231F1F",
-            "#231F1F",
-          ],
-        },
       }}
     >
       <Router>

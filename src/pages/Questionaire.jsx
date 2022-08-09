@@ -73,7 +73,7 @@ export default function Questionaire() {
           flexDirection: "column",
         }}
       >
-        <Title style={{ color: 'white' }}>SusFood</Title>
+        <Title style={{ color: 'white' }}>SUSFood</Title>
         <Text color="white">Get Started</Text>
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
           <form

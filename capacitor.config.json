@@ -1,0 +1,6 @@
+{
+  "appId": "com.example.app",
+  "appName": "SUSFood",
+  "webDir": "dist",
+  "bundledWebRuntime": false
+}

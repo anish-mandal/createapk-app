@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <Center style={{ overflow: 'hidden' }}>
       <Stack>
-        <StyledTabs defaultValue="challenges" inverted>
+        <StyledTabs color="teal" defaultValue="challenges" inverted>
           <Tabs.Panel value="challenges">
             <Challenges />
           </Tabs.Panel>

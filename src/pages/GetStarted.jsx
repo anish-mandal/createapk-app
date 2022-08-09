@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Center, Stack, Title, Text, Image, Button } from "@mantine/core";
 import { Link } from "react-router-dom";
-import Logo from "../assets/logo.jpeg";
+import Food from "../assets/food.png";
 import { useNavigate } from 'react-router-dom'
 
 export default function GetStarted() {
@@ -18,12 +18,12 @@ export default function GetStarted() {
     >
       <Stack align="center">
         <Center style={{ flexDirection: "column" }}>
-          <Text>Welcome to</Text>
-          <Title>SUSFOOD</Title>
+          <Text color="white">Welcome to</Text>
+          <Title style={{ color: 'white' }}>SUSFood</Title>
         </Center>
-        <Image src={Logo} height={200} width={200}></Image>
+        <Image src={Food} height={300} width={300}></Image>
         <Link to="/questions">
-          <Button>Get Started</Button>
+          <Button color="green" radius="lg" size="lg">Get Started</Button>
         </Link>
       </Stack>
     </Center>

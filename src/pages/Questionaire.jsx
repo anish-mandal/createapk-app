@@ -66,22 +66,22 @@ export default function Questionaire() {
   }, [])
 
   return (
-    <Container pt={30} pb={30}>
+    <Container mt={30} mb={30}>
       <Center
         style={{
           alignContent: "center",
           flexDirection: "column",
         }}
       >
-        <Title>SusFood</Title>
-        <Text>Get Started</Text>
+        <Title style={{ color: 'white' }}>SusFood</Title>
+        <Text color="white">Get Started</Text>
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
           <form
             onSubmit={form.onSubmit((values) => {
               const jsonValues = JSON.stringify(values);
 
               localStorage.setItem("userInfo", jsonValues);
-              navigate("/home");
+              navigate("/result");
             })}
           >
             <Center>
@@ -188,7 +188,7 @@ export default function Questionaire() {
             <Space h="sm"></Space>
 
             <Group position="right" mt="md">
-              <Button type="submit" fullWidth>
+              <Button type="submit" fullWidth color="teal">
                 Submit
               </Button>
             </Group>

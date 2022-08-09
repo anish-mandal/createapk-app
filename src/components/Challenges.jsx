@@ -50,6 +50,26 @@ export default function Challenges() {
     }
   }, []);
 
+  function addClickHandle(key) {
+    const updatedState = browseChallenges.filter((elem, id) => id !== key);
+
+    setBrowseChallenges(updatedState);
+
+    setMyChallenges((prevState) => {
+      if (prevState.includes(browseChallenges[key])) {
+        return prevState;
+      } else {
+        return [browseChallenges[key], ...prevState];
+      }
+    });
+  }
+
+  function doneClickHandle(key) {
+    const updatedState = myChallenges.filter((elem, id) => id !== key);
+
+    setMyChallenges(updatedState);
+  }
+
   return (
     <Center>
       <Stack>
@@ -57,7 +77,7 @@ export default function Challenges() {
           <Title>Hi {userData.firstName},</Title>
           <Title>How are you ?</Title>
         </Center>
-        <Tabs defaultValue="my-challenges">
+        <Tabs color="teal" defaultValue="my-challenges">
           <Tabs.List position="apart">
             <Tabs.Tab value="my-challenges">My Challenges</Tabs.Tab>
             <Tabs.Tab value="browse-challenges">Browse Challenges</Tabs.Tab>
@@ -71,11 +91,13 @@ export default function Challenges() {
                     <Title order={4}>{data.challenge}</Title>
                     <Stack align={"flex-start"}>
                       {data.badge.map((data, key) => {
-                        return <Badge key={key}>{data}</Badge>;
+                        return <Badge key={key} color="teal">{data}</Badge>;
                       })}
                     </Stack>
                     <Space h="md"></Space>
-                    <Button fullWidth>Add</Button>
+                    <Button fullWidth onClick={() => addClickHandle(key)} color="teal">
+                      Add
+                    </Button>
                   </Card>
                 );
               })}
@@ -90,11 +112,13 @@ export default function Challenges() {
                     <Title order={4}>{data.challenge}</Title>
                     <Stack align={"flex-start"}>
                       {data.badge.map((data, key) => {
-                        return <Badge key={key}>{data}</Badge>;
+                        return <Badge key={key} color="teal">{data}</Badge>;
                       })}
                     </Stack>
                     <Space h="md"></Space>
-                    <Button fullWidth>Add</Button>
+                    <Button fullWidth onClick={() => doneClickHandle(key)} color="teal">
+                      Done
+                    </Button>
                   </Card>
                 );
               })}

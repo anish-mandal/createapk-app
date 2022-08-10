@@ -9,83 +9,36 @@ import {
   ScrollArea,
   Divider,
   Group,
-  Button
+  Button,
+  Drawer,
 } from "@mantine/core";
-
-function Fruits(props) {
-  if (!props.fruits.length) {
-    return null;
-  }
-
-  return (
-    <>
-      <Divider my="sm" label="Fruits" />
-      {props.fruits.map((data, key) => {
-        return (
-          <Card withBorder key={key} m="xs">
-            {data}
-          </Card>
-        );
-      })}
-    </>
-  );
-}
-
-function Grains(props) {
-  if (!props.grains.length) {
-    return null;
-  }
-
-  return (
-    <>
-      <Divider my="sm" label="Grains" />
-      {props.grains.map((data, key) => {
-        return (
-          <Card withBorder key={key} m="xs">
-            {data}
-          </Card>
-        );
-      })}
-    </>
-  );
-}
-
-function Vegetables(props) {
-  if (!props.vegetables.length) {
-    return null;
-  }
-
-  return (
-    <>
-      <Divider my="sm" label="Vegetables" />
-      {props.vegetables.map((data, key) => {
-        return (
-          <Card withBorder key={key} m="xs">
-            {data}
-          </Card>
-        );
-      })}
-    </>
-  );
-}
+import { BsPlusLg } from "react-icons/bs";
 
 export default function Pantry() {
-  const [inventoryFruits, setInventoryFruits] = React.useState([]);
-  const [inventoryGrains, setInventoryGrains] = React.useState([]);
-  const [inventoryVegetables, setInventoryVegetables] = React.useState([]);
-  const [shoppingFruits, setShoppingFruits] = React.useState([]);
-  const [shoppingGrains, setShoppingGrains] = React.useState([]);
-  const [shoppingVegetables, setShoppingVegetables] = React.useState([]);
+  let [inventory, setInventory] = React.useState([]);
+  let [shoppingList, setShoppingList] = React.useState([]);
+  let [opened, setOpened] = React.useState(false);
+  let [addItemsList, setAddItemsList] = React.useState([]);
 
   React.useEffect(() => {
-    setInventoryFruits(["Blueberries", "Banana"]);
-    setInventoryGrains(["Rice"]);
-    setInventoryVegetables([]);
-
-    setShoppingFruits(["Apple"]);
-    setShoppingGrains([]);
-    setShoppingVegetables(["Lettuce", "Mushrooms"]);
+    setInventory(["Blueberries", "Banana", "Rice"]);
+    setShoppingList(["Apple", "Lettuce", "Mushrooms"]);
+    setAddItemsList(["Tofu", "Tomatoes", "Broccoli"]);
   }, []);
+
+  function addToShoppingListHandle(key) {
+    const updatedState = addItemsList.filter((elem, id) => id !== key);
+
+    setAddItemsList(updatedState);
+
+    setShoppingList((prevState) => {
+      if (prevState.includes(addItemsList[key])) {
+        return prevState;
+      } else {
+        return [addItemsList[key], ...prevState];
+      }
+    });
+  }
 
   return (
     <Container>
@@ -95,6 +48,30 @@ export default function Pantry() {
           <Title>Pantry</Title>
         </Center>
 
+        <Drawer
+          title="Add food to the shopping list"
+          opened={opened}
+          onClose={() => setOpened(false)}
+          padding="xl"
+          size="xl"
+          position="bottom"
+        >
+          <Center>
+            <ScrollArea style={{ height: "60vh", width: "350px" }}>
+              {addItemsList.map((data, key) => {
+                return (
+                  <Card withBorder key={key} m="xs">
+                    {data}
+                    <Button onClick={() => addToShoppingListHandle(key)} fullWidth>
+                      Add to list
+                    </Button>
+                  </Card>
+                );
+              })}
+            </ScrollArea>
+          </Center>
+        </Drawer>
+
         <Tabs defaultValue="inventory" color="teal">
           <Tabs.List position="apart">
             <Tabs.Tab value="inventory">Inventory</Tabs.Tab>
@@ -103,19 +80,42 @@ export default function Pantry() {
 
           <Tabs.Panel value="inventory">
             <ScrollArea style={{ height: "60vh", width: "350px" }}>
-              <Fruits fruits={inventoryFruits}/>
-              <Vegetables vegetables={inventoryVegetables}/>
-              <Grains grains={inventoryGrains}/>
+              {inventory.map((data, key) => {
+                return (
+                  <Card withBorder key={key} m="xs">
+                    {data}
+                  </Card>
+                );
+              })}
             </ScrollArea>
           </Tabs.Panel>
 
           <Tabs.Panel value="shopping-list">
             <ScrollArea style={{ height: "60vh", width: "350px" }}>
-              <Fruits fruits={shoppingFruits}/>
-              <Vegetables vegetables={shoppingVegetables}/>
-              <Grains grains={shoppingGrains}/>
+              {shoppingList.map((data, key) => {
+                return (
+                  <Card withBorder key={key} m="xs">
+                    {data}
+                  </Card>
+                );
+              })}
             </ScrollArea>
           </Tabs.Panel>
+          <Button
+            style={{
+              position: "fixed",
+              bottom: "10%",
+              left: "50%",
+              transform: "translateX(-50%)",
+              borderRadius: "50%",
+              height: "50px",
+              width: "50px",
+            }}
+            color="teal"
+            onClick={() => setOpened(true)}
+          >
+            <BsPlusLg />
+          </Button>
         </Tabs>
       </Stack>
     </Container>
